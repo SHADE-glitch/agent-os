@@ -225,3 +225,23 @@ Cost     A test change in a retired repository, made because the owner asked for
          (`STANDARD.md` §9 step 5). No engine, contract or policy file touched.
 
 Commit   2fa5732
+
+### D-012 · 2026-11-04 · chore
+Symptom  Dimension A requires an aligned bilingual pair, but this repository carried two English-only
+         sections: `README.zh-CN.md` stopped at nine `##` sections while `README.md` had eleven
+         (`The frozen contract`, `Configuration`), and `tests/test_readme_bilingual.py` pinned that
+         gap as if it were a rule. The pair was a documented repository-level exception to the
+         standard's language rule.
+Change   Translate the two missing sections into `README.zh-CN.md` (the frozen contract, including the
+         postflight field set; the configuration table) so both files carry the same eleven `##`
+         sections, and rewrite the ZH "division of labour" note — it no longer claims the deep
+         reference exists only in English. Replace the pinned-gap test with
+         `test_the_two_readmes_carry_the_same_sections` (`en == zh`) and drop the test that asserted
+         the ZH file points at an English-only deep reference, since that statement is no longer true.
+         `AGENTS.md` now states the language rule as strict and fully aligned instead of naming a
+         bilingual exception.
+Evidence 2026-11-04 local: `python3 -m pytest tests/test_readme_bilingual.py` passed; full
+         `python3 -m pytest` passed; `bash ~/.agents/scripts/audit-layout.sh` reports this
+         repository compliant (README pair 11/11).
+Cost     The Chinese README is now a full mirror, so a new section must be written twice by design —
+         the alignment test fails if it is not.

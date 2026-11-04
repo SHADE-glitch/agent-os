@@ -30,10 +30,9 @@
 宿主（目前是 [OpenCode](https://opencode.ai)）负责干活。本引擎决定它**动手前**该被告知什么、
 **做完后**那段经历教会了什么。它从不改代码：所有路径上 `auto_modify_code` 都是 `False`。
 
-> 📖 **分工说明**：深度参考（契约字段全集、四轴表、生命周期内部）的「单一副本」在
-> [`README.md`](README.md)，本文件不复述 —— 同一份事实抄两遍，迟早只改一处。
-> 这里镜像的是决定"要不要继续做"的那批事实；两份文件的共同数字由
-> `tests/test_readme_bilingual.py` 钉住，漂移就是红的。
+> 📖 **分工说明**：`README.md`（英文）与本文（中文）是同一份文档的两种语言，节必须一一对应 ——
+> 一边加节，另一边同轮补上；两份文件的共同数字由 `tests/test_readme_bilingual.py` 钉住，
+> 漂移就是红的。
 
 ---
 
@@ -94,7 +93,7 @@
 
 ```bash
 git clone https://github.com/SHADE-glitch/AgentOS && cd AgentOS
-python3 -m pytest                       # 516 passed —— 测试套件就是规格说明
+python3 -m pytest                       # 515 passed —— 测试套件就是规格说明
 node --test tests/js/plugin.test.mjs    # 29 pass  —— 宿主接缝
 
 ./bin/aos doctor --json                 # 这份 checkout 到底做过什么
@@ -147,6 +146,21 @@ AgentOS/
 
 ---
 
+## 🔒 冻结契约（`schema_version = "1.2"`，兼容 `1.0` 与 `1.1`）
+
+preflight/postflight 的 JSON 形状**就是**公开接口。它们在 `aos/contract/` 里，`tests/test_contract.py`
+把 1.0 的字段集写成字面量，并与实际输出断言相等 —— 所以一个键既不能悄悄删掉，也不能悄悄加上。
+引擎不认识的版本会被**拒绝**（退出码 `3`，回落文档），而不是用引擎自己的版本去回答。
+
+**`postflight` 是学习信号进来的地方**，也是宿主不能缺斤少两的字段集：`outcome`、`quality_score`、
+`test_exit_code` / `compile_exit_code`、`expected_files`、`validation_status`、`tool_errors`、
+`session_error`、`user_interrupted`、`response_summary`、`tool_trace`、`tool_calls`、
+`memory_retrieved`、`memories_used`、`files_changed`、`todos_unfinished`、`reason`。没有 outcome
+上报时，这一轮记为 `partial`，永不记为 `success`；引擎不读的字段会以 `warnings` 里的名字回传，
+而不是被静默忽略。
+
+---
+
 ## 🗳️ 记忆与人门（最小版）
 
 `store/aos.db` 是唯一真相源（schema `v5`，迁移只追加）。一条记忆有四根**互不合并**的轴：
@@ -171,10 +185,30 @@ AgentOS/
 
 ---
 
+## ⚙️ 配置
+
+| 字段 | 环境变量 | 默认值 |
+|---|---|---|
+| root | `AGENT_OS_ROOT` | 仓库根目录 |
+| store 目录 | `AOS_STORE_DIR` | `<root>/store` |
+| 数据库 | `AOS_DB_PATH` | `<store>/aos.db` |
+| content 目录 | `AOS_CONTENT_DIR` | `<root>/content` |
+| memory 目录 | `AOS_MEMORY_DIR` | `<content>/memory` |
+| policies 目录 | `AOS_POLICIES_DIR` | `<content>/policies` |
+| basic-memory 索引（只读） | `AOS_BM_DB` | `~/.basic-memory/memory.db` |
+| basic-memory 配置目录（用来定位它的 vault，只读） | `AOS_BM_CONFIG_DIR` | `~/.basic-memory` |
+| 发布命令前缀（argv，不是路径） | `AOS_BM_BIN` | `uvx basic-memory` |
+| 会话 id / 路由登记表 | `AOS_SESSION_ID` · `AOS_REGISTRY_PATH` | 自动生成 · 内置 |
+
+`AOS_BM_BIN=""` 关闭发布；`content/policies/external_write.json` 里的 `"enabled": false` 也一样。
+两者都不改变人门怎么判：store 先写，且它仍是召回唯一读的东西。
+
+---
+
 ## 🧪 测试
 
 ```bash
-python3 -m pytest                              # 516 passed
+python3 -m pytest                              # 515 passed
 node --test tests/js/plugin.test.mjs           # 29 pass / 0 fail
 ```
 

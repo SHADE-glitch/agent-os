@@ -21,13 +21,13 @@ Guidance for AI coding agents working in this repository. This repository is pub
 > `tests/` (not `scripts/tests/`) and run with `python3 -m pytest`; the JS plugin tests run with
 > `node --test tests/js/plugin.test.mjs`.
 >
-> **Language (documented bilingual exception, `~/.agents/standards/dimensions/a.md` §1).** This repository is
-> intentionally bilingual. Chinese by design: `docs/**`, the CLI output text
-> (`aos/cli/main.py`), product templates (`aos/core/memory/record.py`), seed data
-> (`content/memory/seed/agentos.json`) and CJK test fixtures — retrieval is measured to need
-> Chinese tags (a Chinese-phrased task against English-only tags recalls nothing). English:
-> `README.md`, `AGENTS.md`, `CHANGELOG.md`, `MAINTENANCE*`. Do not "translate" the product
-> strings — the tests pin them.
+> **Language (`~/.agents/standards/dimensions/a.md` §1).** The front door is strict and fully
+> aligned: `README.md` ↔ `README.zh-CN.md` carry the same `##` sections, and `AGENTS.md`,
+> `CHANGELOG.md`, `MAINTENANCE*` are English. Chinese by design is the **product content** only:
+> `docs/**`, the CLI output text (`aos/cli/main.py`), product templates
+> (`aos/core/memory/record.py`), seed data (`content/memory/seed/agentos.json`) and CJK test
+> fixtures — retrieval is measured to need Chinese tags (a Chinese-phrased task against
+> English-only tags recalls nothing). Do not "translate" the product strings — the tests pin them.
 
 Target `<repo>`, treated as a **public repository** (`github.com/SHADE-glitch/AgentOS`): every privacy line is enforced as if public, regardless of where the visibility switch sits right now.
 In the docs, `<repo> / <subject-project> / <rig> / <bm-vault> / ses_redactedNN` are redaction placeholders; the glossary is at the end of `README.md` under "Privacy and placeholders". Redact before publishing, and re-run the two test commands after redacting.
@@ -71,7 +71,7 @@ This file holds only the "do this every time you start" shape, and every line is
 
 ## What counts as green
 
-- The two READMEs (`README.md` English, `README.zh-CN.md` Chinese) **mirror only the batch of facts that decides "continue or not"**: the single deep-reference copy is the English one. Shared numbers are pinned by `tests/test_readme_bilingual.py` — change one side and it goes red, so any change to a number like "516 / 1122→1359 / 8.1–9.2s / 30 criteria / 2026-10-29" must be made on both sides (the test tells you which side you missed).
+- The two READMEs (`README.md` English, `README.zh-CN.md` Chinese) **carry the same `##` sections**: a section added to one side must be added to the other. Shared numbers are pinned by `tests/test_readme_bilingual.py` — change one side and it goes red, so any change to a number like "516 / 1122→1359 / 8.1–9.2s / 30 criteria / 2026-10-29" must be made on both sides (the test tells you which side you missed).
 - `python3 -m pytest` and `node --test tests/js/plugin.test.mjs` — both must run; currently 516 / 29 (the rig has 15 more). Do not append a `-q` to either: `addopts` already has one `-q`, and two `-q` swallow the entire summary line (observed: `python3 -m pytest -q | grep passed` prints nothing); take the count only from `--collect-only -q`.
 - Do not write `node --test tests/js/`: the directory makes it execute `fake-aos.cjs` as a test, printing `# tests 1 / # fail 1`, a false red.
 - **Signals have two mutually independent lists**: the contract's `SIGNAL_FIELDS` (`aos/contract/schema.py`) and the synthesis `_SIGNALS` (`aos/core/outcome.py`). Echoing keeps only the latter ⇒ a new signal that only adds a contract key is silently dropped **before entering the store**. Adding a signal requires changing five places at once: the two lists, the default weight in `policy.py`, `content/policies/outcome.json`, the set-**equality** assertion in the seam guard (`tests/test_cli_contract.py`), and `DEFAULTS` in `tests/test_outcome.py`. Missing any one raises no error — it just does nothing (defect AJ's red screen is this).

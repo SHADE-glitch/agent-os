@@ -7,10 +7,9 @@ second copy), so the shared claims are pinned rather than promised: every figure
 that carries weight has to appear in **both** files, and neither file may regain a
 machine identifier.
 
-Not duplicated on purpose: the deep reference (contract field sets, the four memory
-axes, lifecycle internals) lives in `README.md` alone, because a second prose copy
-would be a second thing to forget to update. The Chinese file says so, and this test
-pins that it says so.
+Both files carry the same section list: the front door is one document in two
+languages, so a section added on one side must be added on the other, and every
+shared figure must be updated on both. That alignment is pinned here, not promised.
 """
 
 from __future__ import annotations
@@ -35,7 +34,7 @@ SHARED_CLAIMS = [
     ("criterion 1 threshold", "30", "30"),
     ("criterion 1 deadline", "2026-10-29", "2026-10-29"),
     ("license", "MIT", "MIT"),
-    ("test suite size", "516", "516"),
+    ("test suite size", "515", "515"),
     ("open defect: no run driver", "AR", "AR"),
     ("open defect: no interrupt source", "AK", "AK"),
 ]
@@ -72,25 +71,17 @@ def test_both_languages_exist_and_cross_link():
     assert "README.md" in read(ZH), "the Chinese entry must point back"
 
 
-def test_the_chinese_file_drops_exactly_the_english_only_deep_reference():
-    """The Chinese file is a deliberate subset, so this pins a *difference*, not two counts.
+def test_the_two_readmes_carry_the_same_sections():
+    """Dimension A requires an aligned pair, so the section lists must match both ways.
 
-    The ZH entry mirrors only the decision facts; the deep reference lives in English
-    alone. Pinning the gap means a section added to *both* sides keeps it and passes,
-    while a section added to one side alone breaks it — the drift this catches. Today
-    the two English-only sections are "The frozen contract" and "Configuration"; if a
-    third is ever made English-only, update the pinned gap on purpose.
+    A section added to one side alone is exactly the drift this catches: add it to the
+    other side rather than pinning a gap.
     """
     en = len(re.findall(r"^## ", read(EN), flags=re.M))
     zh = len(re.findall(r"^## ", read(ZH), flags=re.M))
-    assert zh <= en, (
-        f"README.zh-CN.md has {zh} '##' sections but README.md has {en} — the Chinese "
-        "mirror must never carry a section the English one does not")
-    assert en - zh == 2, (
-        f"the English README has {en - zh} more '##' sections than the Chinese one "
-        f"(README.md {en}, README.zh-CN.md {zh}); the only English-only sections are "
-        '"The frozen contract" and "Configuration" — if a section was added to one side '
-        "alone, add it to the other, or update this pinned gap on purpose")
+    assert en == zh, (
+        f"README.md has {en} '##' sections but README.zh-CN.md has {zh} — the pair must "
+        "be aligned; add the missing section on the other side")
 
 
 def test_shared_facts_appear_in_both_files():
@@ -101,12 +92,6 @@ def test_shared_facts_appear_in_both_files():
         if want_en not in en or want_zh not in zh
     ]
     assert missing == [], "a figure changed in one language only:\n" + "\n".join(missing)
-
-
-def test_the_chinese_file_says_the_deep_reference_lives_in_english():
-    """A mirror that quietly omits half the document is worse than an honest pointer."""
-    assert "README.md" in read(ZH)
-    assert "单一副本" in read(ZH), "state the no-duplication rule inside the file it applies to"
 
 
 def test_placeholder_legend_is_identical_in_both_languages():
