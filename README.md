@@ -1,6 +1,6 @@
 <p align="right"><a href="README.md"><b>English</b></a> | <a href="README.zh-CN.md">简体中文</a></p>
 
-# 🧠 Agent OS
+# 🧠 agent-os
 
 > **An external evidence and governance layer for a coding agent.**
 > Observations → a verdict → **a human gate** → promoted memory → recall that changes

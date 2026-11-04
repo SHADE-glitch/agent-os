@@ -1,6 +1,6 @@
 <p align="right"><a href="README.md">English</a> | <a href="README.zh-CN.md"><b>简体中文</b></a></p>
 
-# 🧠 Agent OS
+# 🧠 agent-os
 
 > **编码智能体的外置证据与治理层。**
 > 真实运行 → 合成判决 → **人门** → 晋升为记忆 → 召回改变**下一次**喂给模型的内容。

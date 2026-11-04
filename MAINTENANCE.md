@@ -1,4 +1,4 @@
-# MAINTENANCE.md — AgentOS
+# MAINTENANCE.md — agent-os
 
 Procedure file. This is a **router**: the rules for working in this repository live in
 [`AGENTS.md`](AGENTS.md), and the long-form design, plan and evidence live under [`docs/`](docs/).

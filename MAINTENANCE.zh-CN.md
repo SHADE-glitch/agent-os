@@ -1,4 +1,4 @@
-# MAINTENANCE.md — AgentOS
+# MAINTENANCE.md — agent-os
 
 维护流程文件。本文件是**路由**：本仓的工作规则在 [`AGENTS.md`](AGENTS.md)，长篇设计、计划与证据在
 [`docs/`](docs/) 下。不要把它们的表格抄到这里——被抄写的事实正是会漂移的东西。

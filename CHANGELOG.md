@@ -272,3 +272,12 @@ Change   ① `content/memory/seed/agentos.json` 的 8 条 `project:AgentOS` 改�
 Evidence `python3 -m pytest -q` 全绿（0 failed）；`grep -c 'project:agent-os'` → 8。
 Cost     已存在的 store 里旧 scope 的行不会自动迁移；本仓已冻结，没有在跑的实例，所以不做数据迁移。
 
+
+### D-015 · 2026-11-04 · chore
+
+Symptom  仓库名已经是 `agent-os`，但两份 README 的 H1 还写 `Agent OS`、两份 MAINTENANCE 写 `AgentOS`——
+         同一份文档里两种写法，和 profile 首页的小写 slug 对不上。
+Change   四份文件的 H1 统一为 `agent-os`。
+Evidence `python3 -m pytest -q` 全绿；四份文件 `grep '^# '` 均为 `agent-os`。
+Cost     文档标题不再保留 `Agent OS` 这种品牌写法。
+
