@@ -29,7 +29,7 @@ Guidance for AI coding agents working in this repository. This repository is pub
 > fixtures — retrieval is measured to need Chinese tags (a Chinese-phrased task against
 > English-only tags recalls nothing). Do not "translate" the product strings — the tests pin them.
 
-Target `<repo>`, treated as a **public repository** (`github.com/SHADE-glitch/AgentOS`): every privacy line is enforced as if public, regardless of where the visibility switch sits right now.
+Target `<repo>`, treated as a **public repository** (`github.com/SHADE-glitch/agent-os`): every privacy line is enforced as if public, regardless of where the visibility switch sits right now.
 In the docs, `<repo> / <subject-project> / <rig> / <bm-vault> / ses_redactedNN` are redaction placeholders; the glossary is at the end of `README.md` under "Privacy and placeholders". Redact before publishing, and re-run the two test commands after redacting.
 It is opencode's **external evidence and governance layer**: real run → synthesized verdict → human gate → promote/demote → next recall changes behavior.
 The engine is pure-stdlib Python; the host enters only through `bin/aos` + a stdin/stdout JSON contract; the engine never calls opencode.

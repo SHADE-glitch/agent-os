@@ -99,7 +99,7 @@ Claims are graded, the same way the docs grade them:
 ## 🚀 Quick start
 
 ```bash
-git clone https://github.com/SHADE-glitch/AgentOS && cd AgentOS
+git clone https://github.com/SHADE-glitch/agent-os && cd agent-os
 python3 -m pytest                       # 515 passed — the suite is the specification
 node --test tests/js/plugin.test.mjs    # 29 pass  — the host seam
 

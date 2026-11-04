@@ -92,7 +92,7 @@
 ## 🚀 上手
 
 ```bash
-git clone https://github.com/SHADE-glitch/AgentOS && cd AgentOS
+git clone https://github.com/SHADE-glitch/agent-os && cd agent-os
 python3 -m pytest                       # 515 passed —— 测试套件就是规格说明
 node --test tests/js/plugin.test.mjs    # 29 pass  —— 宿主接缝
 

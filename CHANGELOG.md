@@ -245,3 +245,19 @@ Evidence 2026-11-04 local: `python3 -m pytest tests/test_readme_bilingual.py` pa
          repository compliant (README pair 11/11).
 Cost     The Chinese README is now a full mirror, so a new section must be written twice by design —
          the alignment test fails if it is not.
+
+### D-013 · 2026-11-04 · chore
+
+Symptom  The repository name carried an uppercase acronym (`AgentOS`), the only dimension-A repo that
+         did; the naming rule is lowercase kebab-case, so every clone instruction and link written
+         against the old spelling would drift from the remote.
+Change   GitHub rename `AgentOS` → `agent-os` (unarchived for the rename, re-archived after), local
+         clone `~/Public/AgentOS` → `~/Public/agent-os`; the clone lines in `README.md` /
+         `README.zh-CN.md` and the public-repository line in `AGENTS.md` now name the new URL. The
+         product name in prose stays `AgentOS` — only the repository identifier changed.
+Evidence `git remote get-url origin` → `git@github.com:SHADE-glitch/agent-os.git`; `bash
+         ~/.agents/scripts/audit-layout.sh` reports this repository compliant; both clone instructions
+         re-read.
+Cost     Two dated records (`docs/audit/2026-10-25.md`, `docs/report/status-2026-10-01.md`) keep the
+         old path and URL: they describe the state at their date and are not rewritten.
+
