@@ -161,7 +161,7 @@ def test_a_verified_but_hypothesis_levelled_memory_stays_in_the_lane():
     assert row["lane"] == "hypothesis"
 
 
-@pytest.mark.parametrize("scope", ["global", "project:AgentOS", "session:s-1"])
+@pytest.mark.parametrize("scope", ["global", "project:agent-os", "session:s-1"])
 def test_the_three_scope_shapes_are_accepted(scope):
     assert new_memory(title="t", body="b", scope=scope)["scope"] == scope
 
@@ -184,14 +184,14 @@ def test_the_trigger_clause_and_scope_survive_into_the_store(store):
         title="pin the token order first",
         body="fix the verification order before touching the signature.",
         type="procedural",
-        scope="project:AgentOS",
+        scope="project:agent-os",
         when_to_apply="editing the auth middleware",
         revalidate_after="2027-01-31",
         verified=True,
     )
     store.upsert_memory(row, tags=row["tags"], roles=row["roles"])
     stored = store.get_memory(row["memory_id"])
-    assert stored["scope"] == "project:AgentOS"
+    assert stored["scope"] == "project:agent-os"
     assert stored["when_to_apply"] == "editing the auth middleware"
     assert stored["revalidate_after"] == "2027-01-31"
 

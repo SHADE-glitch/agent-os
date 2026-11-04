@@ -129,7 +129,7 @@ echo '{"schema_version": "1.2", "phase": "preflight", "task": "…", "session_id
 ## 🏗️ Layout
 
 ```text
-AgentOS/
+agent-os/
 ├── bin/aos                     # thin shim -> python3 -m aos.cli
 ├── aos/                        # the engine — stdlib only
 │   ├── config.py               # every path injectable; nothing else hardcodes a location

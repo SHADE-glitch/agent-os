@@ -123,7 +123,7 @@ def test_structured_carries_scope_and_provenance_the_text_cannot_show():
     """A host that reads fields must be able to judge a memory, not just quote it."""
     row = _memory(
         "M-META",
-        scope="project:AgentOS",
+        scope="project:agent-os",
         status="verified",
         lane="standard",
         source_project="AgentOS",
@@ -133,7 +133,7 @@ def test_structured_carries_scope_and_provenance_the_text_cannot_show():
         version=3,
     )
     item = inject.render([row])["structured"][0]
-    assert item["scope"] == "project:AgentOS"
+    assert item["scope"] == "project:agent-os"
     assert item["status"] == "verified"
     assert item["source_loop_id"] == "LOOP-7"
     assert item["last_verified_at"] == "2026-09-12T00:00:00+00:00"

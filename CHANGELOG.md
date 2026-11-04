@@ -261,3 +261,14 @@ Evidence `git remote get-url origin` → `git@github.com:SHADE-glitch/agent-os.g
 Cost     Two dated records (`docs/audit/2026-10-25.md`, `docs/report/status-2026-10-01.md`) keep the
          old path and URL: they describe the state at their date and are not rewritten.
 
+
+### D-014 · 2026-11-04 · chore
+
+Symptom  记忆的 project scope 是 `project:{目录名}`（`aos/core/memory/record.py` 取 `Path(cwd).name`），
+         而克隆目录已从 `AgentOS` 改成 `agent-os`：不改种子，冷启动的 8 条经验在新目录下一条都召不回。
+Change   ① `content/memory/seed/agentos.json` 的 8 条 `project:AgentOS` 改成 `project:agent-os`；
+         ② 三个测试文件里同名字面量同步，免得读者以为项目 id 还是旧名；③ 两份 README 的目录树根
+         `AgentOS/` 改成 `agent-os/`（它就是克隆目录名）。
+Evidence `python3 -m pytest -q` 全绿（0 failed）；`grep -c 'project:agent-os'` → 8。
+Cost     已存在的 store 里旧 scope 的行不会自动迁移；本仓已冻结，没有在跑的实例，所以不做数据迁移。
+

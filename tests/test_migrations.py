@@ -449,10 +449,10 @@ def test_a_real_v1_store_opens_reads_and_writes_after_migrating(tmp_path, monkey
 
     store.upsert_memory(
         {"memory_id": "M-new", "type": "constraint", "title": "t", "body": "b",
-         "scope": "project:AgentOS", "when_to_apply": "before adding a dependency"},
+         "scope": "project:agent-os", "when_to_apply": "before adding a dependency"},
         tags=["stdlib"],
     )
-    assert store.get_memory("M-new")["scope"] == "project:AgentOS"
+    assert store.get_memory("M-new")["scope"] == "project:agent-os"
     store.close()
 
 

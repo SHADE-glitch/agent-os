@@ -119,7 +119,7 @@ echo '{"schema_version": "1.2", "phase": "preflight", "task": "…", "session_id
 ## 🏗️ 目录与文档地图
 
 ```text
-AgentOS/
+agent-os/
 ├── bin/aos                     # 薄壳 -> python3 -m aos.cli
 ├── aos/                        # 引擎（纯标准库）
 │   ├── config.py               # 所有路径可注入；除这里以外不许写死位置
