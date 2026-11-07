@@ -37,6 +37,20 @@ It never edits code: `auto_modify_code` is `False` on every path.
 
 ---
 
+## 📖 Table of Contents
+
+- [🧭 Why a human gate at all](#-why-a-human-gate-at-all)
+- [📊 Status — read this before you build on it](#-status--read-this-before-you-build-on-it)
+- [🚀 Quick start](#-quick-start)
+- [🏗️ Layout](#️-layout)
+- [🔒 The frozen contract (`schema_version = "1.2"`, serves `1.0` and `1.1`)](#-the-frozen-contract-schema_version--12-serves-10-and-11)
+- [🗳️ Memory and the gate](#️-memory-and-the-gate)
+- [⚙️ Configuration](#️-configuration)
+- [🧪 Tests](#-tests)
+- [🤝 Contributing](#-contributing)
+- [🔐 Privacy and placeholders](#-privacy-and-placeholders)
+- [⚖️ License](#️-license)
+
 ## 🧭 Why a human gate at all
 
 Every project surveyed in [`docs/research/`](docs/research/) that auto-promotes what a model
