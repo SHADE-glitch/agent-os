@@ -281,3 +281,13 @@ Change   四份文件的 H1 统一为 `agent-os`。
 Evidence `python3 -m pytest -q` 全绿；四份文件 `grep '^# '` 均为 `agent-os`。
 Cost     文档标题不再保留 `Agent OS` 这种品牌写法。
 
+### D-016 · 2026-11-07 · taste
+Symptom   A README that opens with the argument, the status table and the frozen contract has a lot
+          to reach for: eleven sections, no table of contents, so the contract and the privacy line
+          were a scroll each.
+Change    A generated table of contents on both sides, placed under the four-part lead. The section
+          order, the wording and the status table are untouched — this is an index, not a rewrite.
+Evidence  L0 2026-11-07 `python3 -m pytest` and `node --test tests/js/plugin.test.mjs` green; the
+          layout audit reports this repository compliant.
+Cost      Fourteen lines per side.
+Commit    b86e0d8
